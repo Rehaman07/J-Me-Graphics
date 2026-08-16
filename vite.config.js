@@ -5,12 +5,17 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   build: {
+    target: 'es2020',
+    cssCodeSplit: true,
+    sourcemap: false,
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
         manualChunks: {
-          three: ['three', '@react-three/fiber', '@react-three/drei'],
-          animation: ['framer-motion', 'gsap', '@gsap/react'],
-          vendor: ['react', 'react-dom', 'lucide-react']
+          'r3f-three': ['three', '@react-three/fiber', '@react-three/drei'],
+          'framer-gsap': ['framer-motion', 'gsap', '@gsap/react'],
+          'lenis-scroll': ['@studio-freight/lenis'],
+          'icons-utils': ['lucide-react', 'canvas-confetti'],
         }
       }
     }

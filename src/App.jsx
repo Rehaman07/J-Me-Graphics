@@ -11,6 +11,7 @@ import Testimonials from './components/Testimonials'
 import Pricing from './components/Pricing'
 import AuditModal from './components/AuditModal'
 import Footer from './components/Footer'
+import ErrorBoundary from './components/ErrorBoundary'
 
 // Lazy-load React Three Fiber Background for lightweight initial paint
 const Background3D = lazy(() => import('./components/Background3D'))
@@ -41,10 +42,12 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-brand-dark text-slate-100 relative overflow-x-hidden selection:bg-brand-orange selection:text-white">
-      {/* 3D Background - Lazy Loaded */}
-      <Suspense fallback={<div className="fixed inset-0 pointer-events-none bg-brand-dark" />}>
-        <Background3D />
-      </Suspense>
+      {/* 3D Background with Error Boundary & Suspense */}
+      <ErrorBoundary fallback={<div className="fixed inset-0 pointer-events-none bg-brand-dark opacity-80" />}>
+        <Suspense fallback={<div className="fixed inset-0 pointer-events-none bg-brand-dark" />}>
+          <Background3D />
+        </Suspense>
+      </ErrorBoundary>
 
       {/* Main Content Sections */}
       <Navbar onOpenAudit={() => setAuditModalOpen(true)} />
